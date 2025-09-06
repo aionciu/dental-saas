@@ -1,6 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import Home from "../src/app/page";
 
+// Mock the hook before importing the component
+jest.mock("../src/hooks/useSupabaseSession", () => ({
+  useSupabaseSession: () => null, // simulate logged out
+}));
+
+import Home from "../src/app/page";
 
 describe("Smoke Test", () => {
   it("renders the landing page", () => {
