@@ -3,9 +3,12 @@
 import { useEffect, useState, createContext, useContext, ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../lib/supabaseClient";
+import { User } from "@supabase/supabase-js";
+
+
 
 interface UserContextType {
-  user: any | null;
+  user: User | null;
   role: string | null;
   loading: boolean;
 }
@@ -17,7 +20,7 @@ const UserContext = createContext<UserContextType>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [role, setRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
