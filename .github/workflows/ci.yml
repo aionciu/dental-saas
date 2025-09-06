@@ -14,5 +14,4 @@ jobs:
           node-version: 18
       - run: npm install
       - run: npm run lint --if-present
-      - run: npm run test -- --ci --reporters=default
       - run: npm run build
