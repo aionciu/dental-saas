@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode, useEffect } from "react";
-import { useUser } from "./AuthProvider";
+import { useUser } from "./__AuthProvider";
 import { useRouter } from "next/navigation";
 
 interface Props {

@@ -1,24 +1,26 @@
-"use client";
+
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
-import { useUser } from "@/components/AuthProvider";
 import { FaBars, FaBell, FaSun, FaMoon, FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
 
+import { useProfileStore } from '@/store/useProfileStore'
+
+
 export default function Header({ toggleSidebar }: { toggleSidebar?: () => void }) {
+
   const [darkMode, setDarkMode] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
-  const { user, role } = useUser();
 
-  const fullName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Guest";
-  const avatarUrl = user?.user_metadata?.avatar_url || null;
-  const avatarInitial = fullName.charAt(0).toUpperCase();
+  const profile = useProfileStore((state) => state.profile)
 
-  console.log(user)
+  const fullName = profile?.full_name || "Guest"
+  const avatarUrl = profile?.avatar_url || null
+  const avatarInitial = fullName.charAt(0).toUpperCase()
+
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -43,8 +45,8 @@ export default function Header({ toggleSidebar }: { toggleSidebar?: () => void }
   };
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    router.push("/");
+    
+    router.push("/api/logout");
   };
 
   return (
